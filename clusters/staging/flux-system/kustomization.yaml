@@ -1,13 +1,13 @@
 resources:
 - gotk-components.yaml
 - gotk-sync.yaml
-patches:
-  - target:
-      kind: ServiceAccount
-      name: source-controller
-      namespace: flux-system
-      version: v1
-    patch: |-
-      - op: add
-        path: /metadata/annotations/iam.gke.io~1gcp-service-account
-        value: hello@prj-academeez.gcp.io          
+# patches:
+#   - target:
+#       kind: ServiceAccount
+#       name: source-controller
+#       namespace: flux-system
+#       version: v1
+#     patch: |-
+#       - op: add
+#         path: /metadata/annotations/iam.gke.io~1gcp-service-account
+#         value: hello@prj-academeez.gcp.io          
