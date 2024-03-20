@@ -1,0 +1,14 @@
+# create a flux HelmChart for the nginx chart
+
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmChart
+metadata:
+  name: nginx
+  namespace: nginx
+spec:  
+  interval: 1h
+  chart: ingress-nginx  
+  sourceRef:
+    kind: HelmRepository
+    name: nginx    
+  version: 4.9.x
