@@ -3,3 +3,4 @@ resources:
   - namespace.yaml
   - repository.yaml
   - chart.yaml
+  - image.yaml
