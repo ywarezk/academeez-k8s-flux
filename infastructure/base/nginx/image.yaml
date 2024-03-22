@@ -6,7 +6,7 @@ metadata:
   name: nginx
   namespace: nginx
 spec:
-  image: kubernetes.github.io/ingress-nginx
+  image: kubernetes.github.io/ingress-nginx/index.yaml
   interval: 1h
   provider: generic
   
