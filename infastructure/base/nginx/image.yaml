@@ -6,7 +6,8 @@ metadata:
   name: nginx
   namespace: nginx
 spec:
-  image: kubernetes.github.io/ingress-nginx/index.yaml  
+  image: oci://chartproxy.container-registry.com/kubernetes.github.io/ingress-nginx
   interval: 1h
   provider: generic
+  
   
