@@ -4,6 +4,5 @@ metadata:
   name: nginx
   namespace: nginx
 spec:
-  interval: 24h
-  type: oci
-  url: oci://chartproxy.container-registry.com/kubernetes.github.io/ingress-nginx
+  interval: 24h  
+  url: https://kubernetes.github.io/ingress-nginx
