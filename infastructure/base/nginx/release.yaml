@@ -1,6 +1,6 @@
 # create a flux HelmChart for the nginx chart
 
-apiVersion: helm.toolkit.fluxcd.io/v1beta2
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: nginx
