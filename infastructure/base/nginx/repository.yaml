@@ -1,9 +1,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
+kind: HelmRepository
 metadata:
   name: nginx
   namespace: nginx
 spec:
   interval: 24h
-  
-  url: oci://chartproxy.container-registry.com/kubernetes.github.io
+  type: oci
+  url: oci://chartproxy.container-registry.com/kubernetes.github.io/ingress-nginx
