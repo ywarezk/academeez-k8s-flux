@@ -3,7 +3,9 @@
   "extends": [
     "config:recommended"
   ],
-  "fileMatch": [
-    "infastructure/base/nginx/release.yaml"
-  ]
+  "flux": {
+    "fileMatch": [
+      "infastructure/base/nginx/release.yaml"
+    ]
+  }
 }
