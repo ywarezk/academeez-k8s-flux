@@ -7,5 +7,5 @@ metadata:
   namespace: nginx
 spec:
   image: us-central1-docker.pkg.dev/prj-academeez/academeez-flux-course/ingress-nginx
-  interval: 1h
+  interval: 1m
   provider: gcp    
