@@ -8,4 +8,4 @@ metadata:
 spec:
   image: us-central1-docker.pkg.dev/prj-academeez/academeez-flux-course
   interval: 1h
-  provider: generic
+  provider: gcp
