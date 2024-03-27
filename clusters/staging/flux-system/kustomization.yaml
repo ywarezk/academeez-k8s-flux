@@ -5,10 +5,10 @@ patches:
   - target:
       kind: ServiceAccount
       namespace: flux-system
-      name: source-controller
+      name: image-reflector-controller
       version: v1
     patch: |-
       - op: add
         path: /metadata/annotations/iam.gke.io~1gcp-service-account
-        value: "hello@gcp.io"
+        value: "image-reflector@prj-academeez.iam.gserviceaccount.com"
         
