@@ -11,4 +11,13 @@ patches:
       - op: add
         path: /metadata/annotations/iam.gke.io~1gcp-service-account
         value: "image-reflector@prj-academeez.iam.gserviceaccount.com"
+  - target:
+      kind: ServiceAccount
+      namespace: flux-system
+      name: source-controller
+      version: v1
+    patch: |-
+      - op: add
+        path: /metadata/annotations/iam.gke.io~1gcp-service-account
+        value: "source-controller@prj-academeez.iam.gserviceaccount.com"
         

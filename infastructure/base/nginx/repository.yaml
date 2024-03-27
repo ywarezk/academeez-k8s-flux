@@ -5,4 +5,5 @@ metadata:
   namespace: nginx
 spec:
   interval: 24h  
-  url: https://kubernetes.github.io/ingress-nginx
+  url: oci://us-central1-docker.pkg.dev/prj-academeez/academeez-flux-course
+  type: oci
