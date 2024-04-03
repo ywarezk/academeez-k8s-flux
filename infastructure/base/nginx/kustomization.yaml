@@ -3,5 +3,5 @@
 resources:
   - "namespace.yaml"
   - "repository.yaml"
-  - "chart.yaml"
+  - "release.yaml"
   
