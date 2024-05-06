@@ -13,6 +13,17 @@ include "root" {
   path = find_in_parent_folders()
 }
 
-include "project" {	
-	path = "${dirname(find_in_parent_folders())}/_env/project.hcl"	
+terraform {
+	source = "."
+}
+
+locals {
+	common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+}
+
+inputs = {
+	project = local.common_vars.project
+	org_id = local.common_vars.org_id
+	billing_account = local.common_vars.billing_account
+	folder_id = local.common_vars.folder_id
 }
