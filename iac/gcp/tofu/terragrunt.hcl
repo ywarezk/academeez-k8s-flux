@@ -8,22 +8,6 @@ locals {
   project  = local.common_vars.project
 }
 
-# Generate a google provider block
-generate "provider" {
-  path      = "provider.tf"
-  if_exists = "overwrite_terragrunt"
-  contents  = <<EOF
-provider "google" {
-  region = "${local.region}"
-  project = "${local.project}"
-}
-provider "google-beta" {
-  region = "${local.region}"
-  project = "${local.project}"
-}
-EOF
-}
-
 # Create remote state in s3
 remote_state {
   backend = "gcs"
