@@ -8,6 +8,6 @@
 #
 
 locals {
-  common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+  common_vars = yamldecode(file("common_vars.yaml"))
 	sa_provider = local.common_vars.sa_course
 }
