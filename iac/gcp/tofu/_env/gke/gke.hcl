@@ -24,4 +24,5 @@ dependency "project" {
 inputs = {
   project = dependency.project.outputs.project.project_id
   region  = local.region
+  name = basename(dirname(get_terragrunt_dir()))
 }

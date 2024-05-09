@@ -17,7 +17,6 @@ include "gke" {
 }
 
 inputs = {
-  name = "prod"
   regional = true
   zones = ["us-central1-a", "us-central1-b", "us-central1-c"]
   initial_node_count = 1
