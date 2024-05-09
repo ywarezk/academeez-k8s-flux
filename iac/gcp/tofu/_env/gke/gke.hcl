@@ -1,5 +1,5 @@
 #
-# Terragrunt file for global GKE configurations
+# Shared GKE logic
 #
 # Created April 15th, 2024
 # @author ywarezk
@@ -8,13 +8,20 @@
 
 locals {
   common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+  region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
+  region   = local.region_vars.locals.region
 }
 
 terraform {
-  source = "git::git@github.com:terraform-google-modules/terraform-google-kubernetes-engine.git?ref=v30.2.0"
+  source = "${dirname(find_in_parent_folders())}/_env/gke/main.tf"
 }
 
 # load project dependency from common/project
 dependency "project" {
   config_path = "${dirname(find_in_parent_folders())}/common/project"
+}
+
+inputs = {
+  project = dependency.project.outputs.project.project_id
+  region  = local.region
 }

@@ -12,10 +12,18 @@ include "root" {
 }
 
 # this includes the common gke configurations
-include "env" {
-  path = "${dirname(find_in_parent_folders())}/_env/gke.hcl"
+include "gke" {
+  path = "${dirname(find_in_parent_folders())}/_env/gke/gke.hcl"
 }
 
 inputs = {
   name = "prod"
+  regional = true
+  zones = ["us-central1-a", "us-central1-b", "us-central1-c"]
+  initial_node_count = 1
+  min_node_count = 3
+  max_node_count = 5
+  preemptible = false
+  spot = false
+  autoscaling = true
 }

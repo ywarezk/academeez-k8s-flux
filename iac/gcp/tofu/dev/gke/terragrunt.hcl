@@ -13,9 +13,12 @@ include "root" {
 
 # this includes the common gke configurations
 include "gke" {
-  path = "${dirname(find_in_parent_folders())}/_env/gke.hcl"  
+  path = "${dirname(find_in_parent_folders())}/_env/gke/gke.hcl"  
 }
 
 inputs = {
   name = "dev"
+  regional = false
+  zones = ["asia-southeast1-a"]
+  initial_node_count = 1
 }
