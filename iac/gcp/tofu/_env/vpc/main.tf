@@ -28,7 +28,7 @@ module "vpc" {
 	subnets = [
 		{
 			subnet_name = "subnet-${var.name}"
-			subnet_ip = "10.10.10.0/24"
+			subnet_ip = "10.0.0.0/17"
 			subnet_region = var.region
 		}
 	]
@@ -36,11 +36,11 @@ module "vpc" {
 		"subnet-${var.name}" = [
 			{
 				range_name = "subnet-${var.name}-pods"
-				ip_cidr_range = "192.168.64.0/24"
+				ip_cidr_range = "192.168.0.0/18"
 			},
 			{
 				range_name = "subnet-${var.name}-services"
-				ip_cidr_range = "192.168.65.0/24"
+				ip_cidr_range = "192.168.64.0/18"
 			}
 		]
 	}

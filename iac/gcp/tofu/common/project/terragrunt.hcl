@@ -14,7 +14,7 @@ include "root" {
 }
 
 terraform {
-	source = "."
+	source = "${dirname(find_in_parent_folders())}/common/project/main.tf"
 }
 
 locals {

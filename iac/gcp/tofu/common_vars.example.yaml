@@ -1,0 +1,17 @@
+# 
+# List of common variables  that are shared in multiple terragrunt files
+# This is an example of that file
+#
+# Created April 16th, 2024
+# @author ywarezk
+# @license MIT
+# 
+
+project: "The name of the project" # a project with this name will be created
+org_id: "numeric value we need this for the provider and project"
+billing_account: "numbers and letters of the billing account"
+state_bucket: "bucket for storing tofu state"
+folder_id: "Numeric value of the folder id where to place the project"
+grp_tofu_members: ["list of users that can impersonate the tofu service account"]
+sa_admin: "service account for admin tofu which will create the course tofu service account and it's permissions"
+sa_course: "The tofu service account with limited course permissions"

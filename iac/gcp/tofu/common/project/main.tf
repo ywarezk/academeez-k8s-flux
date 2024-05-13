@@ -35,8 +35,15 @@ module "project" {
   random_project_id   = false
   auto_create_network = false
   create_project_sa   = false
-  activate_apis       = []
-  folder_id = var.folder_id
+  activate_apis = [
+    "compute.googleapis.com",
+    "container.googleapis.com",
+    "gkehub.googleapis.com",
+    "anthosconfigmanagement.googleapis.com",
+    "cloudresourcemanager.googleapis.com"
+  ]
+  folder_id     = var.folder_id
+  budget_amount = 30
 }
 
 # output the entire module.project
