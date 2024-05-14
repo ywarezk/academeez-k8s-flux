@@ -16,13 +16,19 @@ Things you need to know before we start our journey. Requirements, Prerequisites
 
 In this lesson we will Install Flux on our K8S cluster
 
+[![Install flux using cli](https://img.youtube.com/vi/vp-oFksFoZs/0.jpg)](https://www.youtube.com/watch?v=vp-oFksFoZs)
+
 ### [2. kustomize-controller](https://www.academeez.com/en/course/kubernetes/flux/kustomize-controller)
 
 When we installed Flux, gitops operators were installed as well. We will go over each of those operators, starting with `kustomize-controller` which collects manifests and keeps our cluster synced with the state described in those manifests.
 
+[![kustomize-controller](https://img.youtube.com/vi/DqXDrAR4cJ4/0.jpg)](https://www.youtube.com/watch?v=DqXDrAR4cJ4)
+
 ### [3. helm-controller](https://www.academeez.com/en/course/kubernetes/flux/helm-controller)
 
 No more using the `helm` command to altar our k8s cluster state. Installing helm charts is done in a declarative gitops way using flux [helm-controller](https://www.academeez.com/en/course/kubernetes/flux/helm-controller). In this lesson we will learn about `helm-controller` by installing our first chart - [nginx ingress controller](https://docs.nginx.com/nginx-ingress-controller)
+
+[![helm-controller](https://img.youtube.com/vi/aD5_OA3IEaA/0.jpg)](https://www.youtube.com/watch?v=aD5_OA3IEaA)
 
 ## Repo structure
 
