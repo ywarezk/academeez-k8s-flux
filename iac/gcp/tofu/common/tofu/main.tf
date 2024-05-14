@@ -107,3 +107,10 @@ resource "google_project_iam_member" "sa_tofu_get_iam_policy" {
   role    = "roles/iam.securityAdmin"
   member  = "serviceAccount:${google_service_account.sa_tofu.email}"
 }
+
+# allow sa tofu to create CRD in the gke cluster
+resource "google_project_iam_member" "sa_tofu_crd" {
+  project = var.project
+  role    = "roles/container.clusterAdmin"
+  member  = "serviceAccount:${google_service_account.sa_tofu.email}"
+}

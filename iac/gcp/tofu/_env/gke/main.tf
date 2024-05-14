@@ -91,19 +91,20 @@ variable "machine_type" {
 }
 
 module "gke" {
-  source              = "terraform-google-modules/kubernetes-engine/google"
-  version             = "~> 30.0"
-  name                = "gke-${var.name}"
-  project_id          = var.project
-  regional            = var.regional
-  region              = var.region
-  zones               = var.zones
-  initial_node_count  = var.initial_node_count
-  network             = var.network
-  subnetwork          = var.subnetwork
-  ip_range_pods       = var.subnets_secondary_ranges[0].range_name
-  ip_range_services   = var.subnets_secondary_ranges[1].range_name
-  deletion_protection = false
+  source                   = "terraform-google-modules/kubernetes-engine/google"
+  version                  = "~> 30.0"
+  name                     = "gke-${var.name}"
+  project_id               = var.project
+  regional                 = var.regional
+  region                   = var.region
+  zones                    = var.zones
+  initial_node_count       = var.initial_node_count
+  network                  = var.network
+  subnetwork               = var.subnetwork
+  ip_range_pods            = var.subnets_secondary_ranges[0].range_name
+  ip_range_services        = var.subnets_secondary_ranges[1].range_name
+  deletion_protection      = false
+  remove_default_node_pool = true
 
   # terraform-google-modules/kubernetes-engine/google create a single node pool with preemptible nodes
   node_pools = [
@@ -119,6 +120,7 @@ module "gke" {
       image_type         = "COS_CONTAINERD"
       autoscaling        = var.autoscaling
       initial_node_count = var.initial_node_count
+      node_count         = var.initial_node_count
     }
   ]
 
@@ -131,21 +133,21 @@ module "gke" {
 
   node_pools_labels = {
     all = {}
-    default-node-pool = {
-      default-node-pool = true
+    default-pool = {
+      default-pool = true
     }
-  }  
+  }
 
   node_pools_taints = {
     all = []
-    default-node-pool = [
+    default-pool = [
       {
-        key    = "default-node-pool"
+        key    = "default-pool"
         value  = true
         effect = "PREFER_NO_SCHEDULE"
       },
     ]
-  }  
+  }
 }
 
 output "gke" {

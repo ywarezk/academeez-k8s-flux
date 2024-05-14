@@ -19,5 +19,7 @@ include "gke" {
 inputs = {  
   regional = false
   zones = ["asia-southeast1-a"]
-  initial_node_count = 1
+  initial_node_count = 3
+  min_node_count = 3
+  max_node_count = 3
 }
