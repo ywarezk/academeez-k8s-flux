@@ -16,8 +16,8 @@ terraform {
 }
 
 variable "env" {
-	type        = string
-	description = "The environment of the cluster"
+  type        = string
+  description = "The environment of the cluster"
 }
 
 resource "flux_bootstrap_git" "bootstrap" {
