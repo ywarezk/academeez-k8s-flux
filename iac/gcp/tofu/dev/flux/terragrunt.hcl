@@ -11,5 +11,5 @@ include "root" {
 }
 
 include "flux" {
-  path = "${dirname(find_in_parent_folders())}/_env/flux/flux.hcl"  
+  path = "${dirname(find_in_parent_folders())}/_env/flux/flux.hcl"
 }

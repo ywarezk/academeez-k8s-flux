@@ -17,12 +17,12 @@ include "gke" {
 }
 
 inputs = {
-  regional = true
-  zones = ["us-central1-a", "us-central1-b", "us-central1-c"]
+  regional           = true
+  zones              = ["us-central1-a", "us-central1-b", "us-central1-c"]
   initial_node_count = 1
-  min_node_count = 3
-  max_node_count = 5
-  preemptible = false
-  spot = false
-  autoscaling = true
+  min_node_count     = 3
+  max_node_count     = 5
+  preemptible        = false
+  spot               = false
+  autoscaling        = true
 }

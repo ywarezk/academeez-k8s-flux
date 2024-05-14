@@ -9,5 +9,5 @@
 
 locals {
   common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
-	sa_provider = local.common_vars.sa_admin
+  sa_provider = local.common_vars.sa_admin
 }

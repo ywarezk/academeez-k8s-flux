@@ -11,5 +11,5 @@ include "root" {
 }
 
 include "vpc" {
-  path = "${dirname(find_in_parent_folders())}/_env/vpc/vpc.hcl"  
+  path = "${dirname(find_in_parent_folders())}/_env/vpc/vpc.hcl"
 }

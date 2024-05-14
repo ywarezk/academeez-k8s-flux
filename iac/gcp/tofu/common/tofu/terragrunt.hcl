@@ -16,20 +16,20 @@ include "root" {
 
 # terragrunt dependency on common/project
 dependency "project" {
-	config_path = "${dirname(find_in_parent_folders())}/common/project"
+  config_path = "${dirname(find_in_parent_folders())}/common/project"
 }
 
 # create a terragrunt terraform block to point to the module
 terraform {
-	source = "${dirname(find_in_parent_folders())}/common/tofu/main.tf"
+  source = "${dirname(find_in_parent_folders())}/common/tofu/main.tf"
 }
 
 locals {
-	common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+  common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
 }
 
 inputs = {
-	project = dependency.project.outputs.project.project_id
-	state_bucket = local.common_vars.state_bucket
-	grp_tofu_members = local.common_vars.grp_tofu_members
+  project          = dependency.project.outputs.project.project_id
+  state_bucket     = local.common_vars.state_bucket
+  grp_tofu_members = local.common_vars.grp_tofu_members
 }

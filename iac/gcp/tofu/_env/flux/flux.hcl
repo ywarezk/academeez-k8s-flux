@@ -7,8 +7,8 @@
 #
 
 locals {
-	common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
-  env = basename(dirname(get_terragrunt_dir()))
+  common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+  env         = basename(dirname(get_terragrunt_dir()))
 }
 
 terraform {
@@ -16,11 +16,11 @@ terraform {
 }
 
 dependency "gke" {
-	config_path = "${dirname(find_in_parent_folders())}/${local.env}/gke"
+  config_path = "${dirname(find_in_parent_folders())}/${local.env}/gke"
 }
 
 generate "provider_flux" {
-	path      = "provider_flux.tf"
+  path      = "provider_flux.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 	
@@ -53,5 +53,5 @@ EOF
 }
 
 inputs = {
-	env = local.env	
+  env = local.env
 }

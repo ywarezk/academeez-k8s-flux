@@ -8,9 +8,9 @@
 # @license MIT
 #
 
-locals {  
+locals {
   region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
-  region   = local.region_vars.locals.region
+  region      = local.region_vars.locals.region
 }
 
 dependency "project" {
@@ -22,7 +22,7 @@ terraform {
 }
 
 inputs = {
-	name = basename(dirname(get_terragrunt_dir()))
+  name    = basename(dirname(get_terragrunt_dir()))
   project = dependency.project.outputs.project.project_id
-  region  = local.region  
+  region  = local.region
 }

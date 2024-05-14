@@ -9,5 +9,5 @@
 
 locals {
   common_vars = yamldecode(file("common_vars.yaml"))
-	sa_provider = local.common_vars.sa_course
+  sa_provider = local.common_vars.sa_course
 }

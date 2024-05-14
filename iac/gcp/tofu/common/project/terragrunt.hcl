@@ -14,16 +14,16 @@ include "root" {
 }
 
 terraform {
-	source = "${dirname(find_in_parent_folders())}/common/project/main.tf"
+  source = "${dirname(find_in_parent_folders())}/common/project/main.tf"
 }
 
 locals {
-	common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+  common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
 }
 
 inputs = {
-	project = local.common_vars.project
-	org_id = local.common_vars.org_id
-	billing_account = local.common_vars.billing_account
-	folder_id = local.common_vars.folder_id
+  project         = local.common_vars.project
+  org_id          = local.common_vars.org_id
+  billing_account = local.common_vars.billing_account
+  folder_id       = local.common_vars.folder_id
 }
