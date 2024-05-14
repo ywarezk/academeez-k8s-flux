@@ -1,0 +1,11 @@
+
+
+# flux HelmRepository for installing nginx ingress controller
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: nginx
+  namespace: nginx
+spec:
+  url: oci://ghcr.io/nginxinc/charts
+  type: oci
