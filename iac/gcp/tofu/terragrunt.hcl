@@ -1,6 +1,11 @@
 /**
- * - common providers configuration
- * - remote state configuration
+ * The root terragrunt will contain:
+ *    - common provider configurations
+ *    - remote state configuration
+ *    - impersonation logic
+ *
+ * Created December 14th, 2024
+ * @author ywarezk
  */
  
 locals {
@@ -12,14 +17,13 @@ locals {
 	common_project = local.common_vars.common_project
 }
  
+# configure remote state in bucket
 remote_state {
   backend = "gcs"
-
 	generate = {
 		path = "backend.tf"
 		if_exists = "overwrite"		
 	}
-
   config = {
     project  = local.common_project
     location = "eu"
@@ -28,6 +32,7 @@ remote_state {
   }
 }
  
+# configure common providers
 generate "provider" {
 	path = "provider.tf"
 	if_exists = "overwrite"

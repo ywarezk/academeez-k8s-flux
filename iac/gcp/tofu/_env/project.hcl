@@ -1,3 +1,9 @@
+/**
+ * terragrunt function to create a project
+ *
+ * Created December 14th, 2024
+ * @author ywarezk
+ */
 
 locals {
 	org_id = yamldecode(file(find_in_parent_folders("common_vars.yaml"))).org_id
