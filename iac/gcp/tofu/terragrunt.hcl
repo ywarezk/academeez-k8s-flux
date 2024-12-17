@@ -45,4 +45,3 @@ provider "google" {
 EOF
 }
 	
-	
