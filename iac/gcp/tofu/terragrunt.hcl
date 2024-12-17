@@ -1,69 +1,47 @@
-
+/**
+ * The root terragrunt will contain:
+ *    - common provider configurations
+ *    - remote state configuration
+ *    - impersonation logic
+ *
+ * Created December 14th, 2024
+ * @author ywarezk
+ */
+ 
 locals {
-  common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
-
-  # this will allow us to switch region between dev/prod to save costs
-  region_vars   = read_terragrunt_config(find_in_parent_folders("region.hcl"))
-  region        = local.region_vars.locals.region
-  project       = local.common_vars.project
-  provider_vars = read_terragrunt_config(find_in_parent_folders("sa_provider.hcl"))
+	region_vars = yamldecode(file(find_in_parent_folders("region_vars.yaml")))
+	billing_vars = yamldecode(file(find_in_parent_folders("billing_vars.yaml")))
+	common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+	region = local.region_vars.region
+	billing_project = local.billing_vars.billing_project
+	common_project = local.common_vars.common_project
 }
-
-# Generate a google provider block
+ 
+# configure remote state in bucket
+remote_state {
+  backend = "gcs"
+	generate = {
+		path = "backend.tf"
+		if_exists = "overwrite"		
+	}
+  config = {
+    project  = local.common_project
+    location = "eu"
+    bucket   = "academeez-k8s-flux-terragrunt-state"
+    prefix   = "${path_relative_to_include()}/tofu.tfstate"
+  }
+}
+ 
+# configure common providers
 generate "provider" {
-  path      = "provider.tf"
-  if_exists = "overwrite_terragrunt"
-  contents  = <<EOF
-	
-provider "google" {
-  alias = "impersonation"
-  scopes = [
-    "https://www.googleapis.com/auth/cloud-platform",
-    "https://www.googleapis.com/auth/userinfo.email",
-  ]
-	region = "${local.region}"
-  project = "${local.project}"
-}
-
-#receive short-lived access token
-data "google_service_account_access_token" "sa_impersonate" {
-  provider               = google.impersonation
-  target_service_account = "${local.provider_vars.locals.sa_provider}"
-  scopes                 = ["cloud-platform", "userinfo-email"]
-  lifetime               = "3600s"
-}
-
-# default provider to use the the token
-provider "google" {
-  project = "${local.project}"
-  access_token    = data.google_service_account_access_token.sa_impersonate.access_token
-  request_timeout = "60s"
-}
-
-provider "google-beta" {
-  region = "${local.region}"
-  project = "${local.project}"
-  access_token    = data.google_service_account_access_token.sa_impersonate.access_token
-  request_timeout = "60s"
+	path = "provider.tf"
+	if_exists = "overwrite"
+	contents = <<EOF
+provider "google" {	
+	region  = "${local.region}"
+	billing_project = "${local.billing_project}"
+	user_project_override = true
 }
 EOF
 }
-
-# Create remote state in s3
-remote_state {
-  backend = "gcs"
-  config = {
-    bucket   = local.common_vars.state_bucket
-    project  = local.common_vars.project
-    prefix   = path_relative_to_include()
-    location = "eu"
-  }
-  generate = {
-    path      = "backend.tf"
-    if_exists = "overwrite_terragrunt"
-  }
-}
-
-inputs = merge(
-  local.region_vars.locals
-)
+	

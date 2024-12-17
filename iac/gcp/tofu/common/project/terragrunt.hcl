@@ -1,29 +1,24 @@
-#
-# shared project for all environments
-# Often you will want to create a different project for each environment,
-# but to simplify the setup we will use a single project for all environments
-#
-# Created April 15th, 2024
-# @author ywarezk
-# @license MIT
-#
+/**
+ * The common resources that are shared between the environments will be under the common project
+ *
+ * Created December 15th, 2024
+ * @author ywarezk
+ */
 
-# this includes the common parent configurations
 include "root" {
-  path = find_in_parent_folders()
+	path   = find_in_parent_folders()
 }
 
-terraform {
-  source = "${dirname(find_in_parent_folders())}/common/project/main.tf"
+include "project" {
+	path = "${dirname(find_in_parent_folders())}/_env/project.hcl"
 }
 
-locals {
-  common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+# since the project will be under the shared folder we will grab it using the dependency block
+dependency "shared_folder" {
+	config_path = "../folders/shared"
 }
 
 inputs = {
-  project         = local.common_vars.project
-  org_id          = local.common_vars.org_id
-  billing_account = local.common_vars.billing_account
-  folder_id       = local.common_vars.folder_id
+	folder_id = dependency.shared_folder.outputs.id
+	name = "academeez-k8s-flux-common"
 }
