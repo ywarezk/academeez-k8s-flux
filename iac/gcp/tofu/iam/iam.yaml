@@ -1,0 +1,8 @@
+# 
+# impersonate this service account when creating resources in this folder
+#
+# Created April 18th, 2025
+# @author: ywarezk
+# 
+
+email: "az-k8s-iam@academeez-k8s-flux-iam-c55b.iam.gserviceaccount.com"
