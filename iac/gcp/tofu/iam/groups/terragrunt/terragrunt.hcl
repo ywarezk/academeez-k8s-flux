@@ -1,11 +1,5 @@
-/**
- * this will create the terragrunt group
- * The terragrunt group will give permission to access the state bucket so a member can run terragrunt apply
- *
- * Created April 18th, 2025
- * @ywarezk
- *
- */
+
+
 
 include "root" {
   path = find_in_parent_folders()
@@ -15,11 +9,13 @@ include "group" {
   path = "${dirname(find_in_parent_folders())}/_env/group.hcl"
 }
 
+dependency "admin_group" {
+  config_path = "../admin"
+}
+
 inputs = {
-  description  = "Terragrunt group of developers that can run IAC"
-  display_name = "Academeez K8s Flux Terragrunt Group"
-  id           = "academeez-k8s-flux-terragrunt@academeez.com"
-  members = [
-    "k8s-flux@academeez.com"
-  ]
+  id           = "k8s-flux-terragrunt@academeez.com"
+  display_name = "k8s-flux-terragrunt"
+  description  = "k8s flux terragrunt bucket"
+  members      = [dependency.admin_group.outputs.id]
 }
