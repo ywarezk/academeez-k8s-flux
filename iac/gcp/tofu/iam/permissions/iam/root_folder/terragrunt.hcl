@@ -4,11 +4,11 @@
  */
 
 include "root" {
-  path = find_in_parent_folders()
+  path = find_in_parent_folders("root.hcl")
 }
 
 include "iam_folder" {
-  path = "${dirname(find_in_parent_folders())}/_env/iam/folder.hcl"
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_env/iam/folder.hcl"
 }
 
 # since the project will be under the shared folder we will grab it using the dependency block
@@ -25,6 +25,9 @@ inputs = {
   mode    = "authoritative"
   bindings = {
     "roles/iam.securityAdmin" = [
+      "serviceAccount:${dependency.iam_sa.outputs.email}"
+    ],
+    "roles/resourcemanager.folderViewer" = [
       "serviceAccount:${dependency.iam_sa.outputs.email}"
     ]
   }

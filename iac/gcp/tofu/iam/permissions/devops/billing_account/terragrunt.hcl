@@ -9,7 +9,7 @@ locals {
 }
 
 include "root" {
-  path = find_in_parent_folders()
+  path = find_in_parent_folders("root.hcl")
 }
 
 
@@ -18,7 +18,7 @@ dependency "devops_sa" {
 }
 
 include "iam" {
-  path = "${dirname(find_in_parent_folders())}/_env/iam/billing-account.hcl"
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_env/iam/billing-account.hcl"
 }
 
 inputs = {

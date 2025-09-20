@@ -1,7 +1,7 @@
 
 
 include "root" {
-  path = find_in_parent_folders()
+  path = find_in_parent_folders("root.hcl")
 }
 
 dependency "devops_sa" {
@@ -17,7 +17,7 @@ dependency "iam_project" {
 }
 
 include "sa_allow" {
-  path = "${dirname(find_in_parent_folders())}/_env/iam/service-account.hcl"
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_env/iam/service-account.hcl"
 }
 
 inputs = {

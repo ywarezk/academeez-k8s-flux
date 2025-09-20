@@ -4,7 +4,7 @@
 # 
 
 include "root" {
-  path = find_in_parent_folders()
+  path = find_in_parent_folders("root.hcl")
 }
 
 dependency "iam_project" {
@@ -16,7 +16,7 @@ dependency "iam_sa" {
 }
 
 include "iam" {
-  path = "${dirname(find_in_parent_folders())}/_env/iam/project.hcl"
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_env/iam/project.hcl"
 }
 
 inputs = {
