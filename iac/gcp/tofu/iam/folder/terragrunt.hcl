@@ -8,11 +8,11 @@
  */
 
 include "root" {
-  path = find_in_parent_folders()
+  path = find_in_parent_folders("root.hcl")
 }
 
 include "folder" {
-  path = "${dirname(find_in_parent_folders())}/_env/folder.hcl"
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_env/folder.hcl"
 }
 
 # since this folder is under the root folder we will use dependency to get the parent folder

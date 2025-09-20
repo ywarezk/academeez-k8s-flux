@@ -1,7 +1,7 @@
 
 
 include "root" {
-  path = find_in_parent_folders()
+  path = find_in_parent_folders("root.hcl")
 }
 
 
@@ -11,7 +11,7 @@ dependency "terragrunt_group" {
 
 
 include "bucket_permissions" {
-  path = "${dirname(find_in_parent_folders())}/_env/iam/storage-bucket.hcl"
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_env/iam/storage-bucket.hcl"
 }
 
 inputs = {
