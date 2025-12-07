@@ -1,0 +1,19 @@
+[[tools.kubectl]]
+version = "1.34.2"
+backend = "aqua:kubernetes/kubernetes/kubectl"
+"platforms.macos-x64" = { checksum = "sha256:d2a71bb7dd7238287f2ba4efefbad4f98584170063f7d9e6c842f772d9255d45", url = "https://dl.k8s.io/v1.34.2/bin/darwin/amd64/kubectl"}
+
+[[tools.opentofu]]
+version = "1.10.7"
+backend = "aqua:opentofu/opentofu"
+"platforms.macos-x64" = { checksum = "sha256:ec063e3920fab7cc80299f66d2fda3ec752f774b88caf3c207122336674843a3", url = "https://github.com/opentofu/opentofu/releases/download/v1.10.7/tofu_1.10.7_darwin_amd64.tar.gz"}
+
+[[tools.pre-commit]]
+version = "4.5.0"
+backend = "aqua:pre-commit/pre-commit"
+"platforms.macos-x64" = { checksum = "sha256:fbbfa47d19b98e03eb11963094ac3644a97cba105a8c660d8dab4c409c89cebe", url = "https://github.com/pre-commit/pre-commit/releases/download/v4.5.0/pre-commit-4.5.0.pyz"}
+
+[[tools.terragrunt]]
+version = "0.93.13"
+backend = "aqua:gruntwork-io/terragrunt"
+"platforms.macos-x64" = { checksum = "sha256:a802dd1154db6f0baf5b61a7aba0bc98a6e9ac7be13d2bbfc78ac68cb8e6bfa3", url = "https://github.com/gruntwork-io/terragrunt/releases/download/v0.93.13/terragrunt_darwin_amd64"}
