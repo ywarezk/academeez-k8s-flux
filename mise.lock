@@ -1,3 +1,8 @@
+[[tools."aqua:fluxcd/flux2"]]
+version = "2.7.5"
+backend = "aqua:fluxcd/flux2"
+"platforms.macos-x64" = { checksum = "sha256:2058b49ef38b5773b9aa87b3db83d68cbaf5082ecf908cbd8952a17f6af0e2e8", url = "https://github.com/fluxcd/flux2/releases/download/v2.7.5/flux_2.7.5_darwin_amd64.tar.gz"}
+
 [[tools.kubectl]]
 version = "1.34.2"
 backend = "aqua:kubernetes/kubernetes/kubectl"
