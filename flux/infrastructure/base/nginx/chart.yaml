@@ -1,0 +1,15 @@
+
+# flux HelmChart to grab the nginx ingress controller chart
+#  this example is not really used - we are creating this from the HelmRelease crd
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmChart
+metadata:
+  name: nginx
+  namespace: nginx
+spec:
+  chart: nginx-ingress
+  version: 1.2.x
+  interval: 5h
+  sourceRef:
+    kind: HelmRepository
+    name: nginx
