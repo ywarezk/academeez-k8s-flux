@@ -1,4 +1,6 @@
 .terragrunt-cache
+.terragrunt-stack
+**/.terragrunt-stack/
 billing_vars.yaml
 common_vars.yaml
 
