@@ -19,4 +19,5 @@ inputs = {
   org_id            = local.org_id
   billing_account   = local.billing_account
   budget_amount     = 20
+  deletion_policy   = "DELETE"
 }

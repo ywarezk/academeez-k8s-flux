@@ -19,6 +19,6 @@ backend = "aqua:pre-commit/pre-commit"
 "platforms.macos-x64" = { checksum = "sha256:fbbfa47d19b98e03eb11963094ac3644a97cba105a8c660d8dab4c409c89cebe", url = "https://github.com/pre-commit/pre-commit/releases/download/v4.5.0/pre-commit-4.5.0.pyz"}
 
 [[tools.terragrunt]]
-version = "0.93.13"
+version = "1.1.0-rc2"
 backend = "aqua:gruntwork-io/terragrunt"
-"platforms.macos-x64" = { checksum = "sha256:a802dd1154db6f0baf5b61a7aba0bc98a6e9ac7be13d2bbfc78ac68cb8e6bfa3", url = "https://github.com/gruntwork-io/terragrunt/releases/download/v0.93.13/terragrunt_darwin_amd64"}
+"platforms.macos-x64" = { checksum = "sha256:178255b847d0628f495c7f0b0647af8f9780138cc71ea0ecd000db422ff23c76", url = "https://github.com/gruntwork-io/terragrunt/releases/download/v1.1.0-rc2/terragrunt_darwin_amd64"}
