@@ -6,7 +6,7 @@ include "root" {
 }
 
 include "group" {
-  path = "${dirname(find_in_parent_folders("root.hcl"))}/../catalog/units/group/terragrunt.hcl"
+  path = "${get_repo_root()}/iac/catalog/units/group/terragrunt.hcl"
 }
 
 inputs = {

@@ -13,7 +13,7 @@ dependency "devops_sa" {
 }
 
 include "iam" {
-  path = "${dirname(find_in_parent_folders("root.hcl"))}/../catalog/units/iam/billing-account/terragrunt.hcl"
+  path = "${get_repo_root()}/iac/catalog/units/iam/billing-account/terragrunt.hcl"
 }
 
 inputs = {

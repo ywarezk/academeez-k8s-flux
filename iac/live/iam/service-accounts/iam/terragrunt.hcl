@@ -11,7 +11,7 @@ include "root" {
 }
 
 include "iam_sa" {
-  path = "${dirname(find_in_parent_folders("root.hcl"))}/../catalog/units/service-account/terragrunt.hcl"
+  path = "${get_repo_root()}/iac/catalog/units/service-account/terragrunt.hcl"
 }
 
 
