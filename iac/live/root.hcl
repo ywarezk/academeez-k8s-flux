@@ -15,7 +15,9 @@ locals {
   iam             = try(yamldecode(file(find_in_parent_folders("iam.yaml"))), { "email" : "" })
   region          = local.region_vars.region
   billing_project = local.billing_vars.billing_project
+  billing_account = local.billing_vars.billing_account
   common_project  = local.common_vars.common_project
+  org_id          = local.common_vars.org_id
 }
 
 # configure remote state in bucket
