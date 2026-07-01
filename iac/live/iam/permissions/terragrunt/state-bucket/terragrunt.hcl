@@ -11,7 +11,7 @@ dependency "terragrunt_group" {
 
 
 include "bucket_permissions" {
-  path = "${dirname(find_in_parent_folders("root.hcl"))}/../catalog/units/iam/storage-bucket/terragrunt.hcl"
+  path = "${get_repo_root()}/iac/catalog/units/iam/storage-bucket/terragrunt.hcl"
 }
 
 inputs = {

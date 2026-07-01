@@ -6,13 +6,15 @@
  */
 
 include "root" {
-  path = find_in_parent_folders("root.hcl")
+  path   = find_in_parent_folders("root.hcl")
+  expose = true
 }
 
 include "folder" {
-  path = "${dirname(find_in_parent_folders("root.hcl"))}/../catalog/units/folder/terragrunt.hcl"
+  path = "${get_repo_root()}/iac/catalog/units/folder/terragrunt.hcl"
 }
 
 inputs = {
-  names = ["academeez-k8s-flux"]
+  parent = "organizations/${include.root.locals.org_id}"
+  names  = ["academeez-k8s-flux"]
 }

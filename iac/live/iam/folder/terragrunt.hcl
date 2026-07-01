@@ -12,7 +12,7 @@ include "root" {
 }
 
 include "folder" {
-  path = "${dirname(find_in_parent_folders("root.hcl"))}/../catalog/units/folder/terragrunt.hcl"
+  path = "${get_repo_root()}/iac/catalog/units/folder/terragrunt.hcl"
 }
 
 # since this folder is under the root folder we will use dependency to get the parent folder

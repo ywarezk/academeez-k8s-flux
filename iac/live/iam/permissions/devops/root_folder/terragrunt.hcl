@@ -8,7 +8,7 @@ include "root" {
 }
 
 include "iam_folder" {
-  path = "${dirname(find_in_parent_folders("root.hcl"))}/../catalog/units/iam/folder/terragrunt.hcl"
+  path = "${get_repo_root()}/iac/catalog/units/iam/folder/terragrunt.hcl"
 }
 
 # since the project will be under the shared folder we will grab it using the dependency block
