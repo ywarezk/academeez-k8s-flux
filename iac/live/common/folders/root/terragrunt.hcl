@@ -5,6 +5,10 @@
  * @author ywarezk
  */
 
+locals {
+  org_id = local.common_vars.org_id
+}
+
 include "root" {
   path = find_in_parent_folders("root.hcl")
 }
@@ -14,5 +18,6 @@ include "folder" {
 }
 
 inputs = {
-  names = ["academeez-k8s-flux"]
+  parent = "organizations/${local.org_id}"
+  names  = ["academeez-k8s-flux"]
 }

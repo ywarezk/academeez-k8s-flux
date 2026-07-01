@@ -1,0 +1,8 @@
+# Ignore everything in the repository by default.
+**
+
+# Re-include the catalog path (parent segments must be un-ignored first).
+!iac
+iac/**
+!iac/catalog
+!iac/catalog/**
