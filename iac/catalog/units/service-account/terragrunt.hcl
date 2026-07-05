@@ -1,14 +1,10 @@
 /**
- * terragrunt function to create a service account
+ * Google Cloud service account unit.
  *
- * Created April 18th, 2025
- * @author: ywarezk 
+ * Wraps terraform-google-modules/service-accounts/google.
+ * Consumers pass module inputs via the `inputs` block in live terragrunt.hcl.
  */
 
 terraform {
-  source = "tfr:///terraform-google-modules/service-accounts/google?version=4.5.3"
-}
-
-inputs = {
-  prefix = "az-k8s"
+  source = "tfr:///terraform-google-modules/service-accounts/google?version=4.7.0"
 }

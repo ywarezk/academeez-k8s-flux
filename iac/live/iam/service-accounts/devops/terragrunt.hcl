@@ -23,4 +23,5 @@ dependency "iam_project" {
 inputs = {
   names      = ["devops"]
   project_id = dependency.iam_project.outputs.project_id
+  prefix     = "az-k8s"
 }
