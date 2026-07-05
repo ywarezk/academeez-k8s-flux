@@ -6,19 +6,23 @@
  */
 
 include "root" {
-  path = find_in_parent_folders("root.hcl")
+  path   = find_in_parent_folders("root.hcl")
+  expose = true
 }
 
 include "project" {
   path = "${get_repo_root()}/iac/catalog/units/project/terragrunt.hcl"
 }
 
-# since the project will be under the shared folder we will grab it using the dependency block
 dependency "shared_folder" {
   config_path = "../folders/shared"
 }
 
 inputs = {
-  folder_id = dependency.shared_folder.outputs.id
-  name      = "academeez-k8s-flux-common"
+  folder_id         = dependency.shared_folder.outputs.id
+  name              = "academeez-k8s-flux-common"
+  org_id            = include.root.locals.org_id
+  billing_account   = include.root.locals.billing_account
+  random_project_id = true
+  budget_amount     = 20
 }
