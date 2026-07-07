@@ -18,6 +18,7 @@ locals {
   billing_account = local.billing_vars.billing_account
   common_project  = local.common_vars.common_project
   org_id          = local.common_vars.org_id
+  customer_id     = local.common_vars.customer_id
 }
 
 # configure remote state in bucket

@@ -1,19 +1,10 @@
 /**
- * terragrunt function to create a group
+ * Google Cloud group unit.
  *
- * Created April 18th, 2025
- * @author: ywarezk 
+ * Wraps terraform-google-modules/group/google.
+ * Consumers pass module inputs via the `inputs` block in live terragrunt.hcl.
  */
 
-locals {
-  customer_id = yamldecode(file(find_in_parent_folders("common_vars.yaml"))).customer_id
-}
-
 terraform {
-  source = "tfr:///terraform-google-modules/group/google?version=0.7.0"
-}
-
-inputs = {
-  customer_id = local.customer_id
-  owners      = ["az-k8s-iam@academeez-k8s-flux-iam-c55b.iam.gserviceaccount.com"]
+  source = "tfr:///terraform-google-modules/group/google?version=0.8.0"
 }
