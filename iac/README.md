@@ -72,4 +72,17 @@ And the video tutorial of this lesson can be found here:
 
 ## Repo structure
 
-Each lesson will be placed in a PR, link to the PR will be available in the lesson page.
+Infrastructure is organized by cloud provider. Each provider has a **catalog** (reusable Terragrunt units) and a **live** folder (your actual environment).
+
+```
+iac/
+├── gcp/
+│   ├── catalog/   # reusable units (project, folder, service-account, …)
+│   └── live/      # live GCP environment
+├── aws/           # placeholder — contributions welcome
+└── azure/         # placeholder — contributions welcome
+```
+
+The GCP course content lives under [`gcp/`](gcp/). Start with [`gcp/live/config/`](gcp/live/config/) to set up local configuration.
+
+Each lesson will be placed in a PR; a link to the PR will be available on the lesson page.
