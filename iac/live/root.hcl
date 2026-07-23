@@ -9,16 +9,16 @@
  */
 
 locals {
-  region_vars     = yamldecode(file(find_in_parent_folders("region_vars.yaml")))
-  billing_vars    = yamldecode(file(find_in_parent_folders("billing_vars.yaml")))
-  common_vars     = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+  region_config   = read_terragrunt_config(find_in_parent_folders("config/region.hcl")).locals
+  billing_config  = read_terragrunt_config(find_in_parent_folders("config/billing.hcl")).locals
+  common_config   = read_terragrunt_config(find_in_parent_folders("config/common.hcl")).locals
   iam             = try(yamldecode(file(find_in_parent_folders("iam.yaml"))), { "email" : "" })
-  region          = local.region_vars.region
-  billing_project = local.billing_vars.billing_project
-  billing_account = local.billing_vars.billing_account
-  common_project  = local.common_vars.common_project
-  org_id          = local.common_vars.org_id
-  customer_id     = local.common_vars.customer_id
+  region          = local.region_config.region
+  billing_project = local.billing_config.billing_project
+  billing_account = local.billing_config.billing_account
+  common_project  = local.common_config.common_project
+  org_id          = local.common_config.org_id
+  customer_id     = local.common_config.customer_id
 }
 
 # configure remote state in bucket

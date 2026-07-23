@@ -1,4 +1,6 @@
 .terragrunt-cache
-billing_vars.yaml
-common_vars.yaml
+.terragrunt-stack/
+config/billing.hcl
+config/common.hcl
+config/region.hcl
 

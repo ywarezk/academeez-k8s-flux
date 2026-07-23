@@ -48,7 +48,7 @@ inputs = {
 }
 ```
 
-Billing account IDs belong in the **live** repository (`root.hcl` from `billing_vars.yaml`).
+Billing account IDs belong in the **live** repository (`root.hcl` from `config/billing.hcl`).
 
 ## Required inputs
 
