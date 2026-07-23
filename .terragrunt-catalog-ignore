@@ -4,5 +4,7 @@
 # Re-include the catalog path (parent segments must be un-ignored first).
 !iac
 iac/**
-!iac/catalog
-!iac/catalog/**
+!iac/gcp
+iac/gcp/**
+!iac/gcp/catalog
+!iac/gcp/catalog/**
