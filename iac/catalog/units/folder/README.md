@@ -67,7 +67,8 @@ See the [module inputs](https://registry.terraform.io/modules/terraform-google-m
 
 ```hcl
 locals {
-  org_id = yamldecode(file(find_in_parent_folders("common_vars.yaml"))).org_id
+  common  = read_terragrunt_config(find_in_parent_folders("config/common.hcl")).locals
+  org_id  = local.common.org_id
 }
 
 inputs = {

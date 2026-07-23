@@ -49,7 +49,7 @@ inputs = {
 }
 ```
 
-`customer_id` belongs in the **live** repository (`root.hcl` from `common_vars.yaml`). Group identity (`id`, `members`, `owners`) is always live-specific.
+`customer_id` belongs in the **live** repository (`root.hcl` from `config/common.hcl`). Group identity (`id`, `members`, `owners`) is always live-specific.
 
 ## Required inputs
 

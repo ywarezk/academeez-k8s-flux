@@ -1,9 +1,0 @@
-# 
-# Contains region information
-# This can be overridable if an internal region_vars.yaml file is present
-#
-# Created December 14th, 2024
-# @author ywarezk
-# 
-
-region: us-central1
