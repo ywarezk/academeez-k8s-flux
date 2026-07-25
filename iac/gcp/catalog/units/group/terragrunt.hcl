@@ -5,6 +5,10 @@
  * Consumers pass module inputs via the `inputs` block in live terragrunt.hcl.
  */
 
+include "root" {
+  path = find_in_parent_folders("root.hcl")
+}
+
 terraform {
   source = "tfr:///terraform-google-modules/group/google?version=0.8.0"
 }
