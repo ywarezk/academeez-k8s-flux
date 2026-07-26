@@ -17,7 +17,22 @@ This is a **Unit** component. It is typically used to manage group membership an
 
 ## Scaffolding
 
-From the catalog TUI, select this unit and press `s` to scaffold it into your working directory. Terragrunt copies the unit files in place and generates a `terragrunt.values.hcl` for any `values.*` references collected by the form.
+From the catalog TUI, select this unit and press `s` to scaffold it into your working directory. Terragrunt copies the unit files in place and prompts for each `values.*` reference (press `x` on optional fields to keep the `try()` default). It writes a `terragrunt.values.hcl` with the answers you provide.
+
+| Value | Required | Default | Description |
+|-------|----------|---------|-------------|
+| `id` | yes | — | Group email address (Google-managed group ID). |
+| `customer_id` | yes* | — | Google Workspace customer ID (`config/common.hcl` in live). |
+| `domain` | no | `""` | Workspace domain instead of `customer_id` (set one or the other). |
+| `display_name` | no | `""` | Display name of the group. |
+| `description` | no | `""` | Description of the group. |
+| `owners` | no | `[]` | Owner emails (users, groups, or service accounts). |
+| `managers` | no | `[]` | Manager emails. |
+| `members` | no | `[]` | Member emails. |
+| `initial_group_config` | no | `"EMPTY"` | Initial group config (`WITH_INITIAL_OWNER`, `EMPTY`, etc.). |
+| `types` | no | `["default"]` | Group types (`default`, `dynamic`, `security`, `external`). |
+
+\*Module requires **either** `customer_id` or `domain`. This catalog unit prompts for `customer_id` by default; use `domain` when you do not use a customer ID.
 
 After scaffolding, wire the unit into your live repository and supply workspace- and org-specific configuration there.
 
@@ -55,20 +70,36 @@ inputs = {
 
 | Input | Type | Description |
 |-------|------|-------------|
-| `customer_id` | `string` | Google Workspace customer ID. |
-| `id` | `string` | Group email address (e.g. `team@example.com`). |
+| `id` | `string` | ID of the group. For Google-managed entities, the ID must be the email address of the group. |
+| `customer_id` | `string` | Customer ID of the organization to create the group in. One of `domain` or `customer_id` must be specified. |
+| `domain` | `string` | Domain of the organization to create the group in. One of `domain` or `customer_id` must be specified. Default `""`. |
 
-## Commonly used optional inputs
+When scaffolding, provide `customer_id` **or** set `domain` (leave the other at its default).
+
+## Optional inputs
 
 | Input | Type | Default | Description |
 |-------|------|---------|-------------|
-| `owners` | `list(string)` | `[]` | Group owners (user or service account emails). |
-| `managers` | `list(string)` | `[]` | Group managers. |
-| `members` | `list(string)` | `[]` | Group members. |
-| `display_name` | `string` | `""` | Display name for the group. |
-| `description` | `string` | `""` | Group description. |
+| `display_name` | `string` | `""` | Display name of the group. |
+| `description` | `string` | `""` | Description of the group. |
+| `owners` | `list(string)` | `[]` | Owners of the group. Each entry is the email address of an existing group, user, or service account. |
+| `managers` | `list(string)` | `[]` | Managers of the group. Each entry is the email address of an existing group, user, or service account. |
+| `members` | `list(string)` | `[]` | Members of the group. Each entry is the email address of an existing group, user, or service account. |
+| `initial_group_config` | `string` | `"EMPTY"` | Initial configuration when creating a group (`INITIAL_GROUP_CONFIG_UNSPECIFIED`, `WITH_INITIAL_OWNER`, `EMPTY`). |
+| `types` | `list(string)` | `["default"]` | Group types. Valid values: `default`, `dynamic`, `security`, `external`. |
 
-See the [module inputs](https://registry.terraform.io/modules/terraform-google-modules/group/google/latest?tab=inputs) for the full list.
+## Commonly used optional inputs
+
+The following are the fields most live configurations set in addition to `customer_id` and `id`:
+
+| Input | Type | Notes |
+|-------|------|--------|
+| `owners` | `list(string)` | Often a service account from a `dependency`. |
+| `members` | `list(string)` | User or group emails. |
+| `display_name` | `string` | Short name shown in Workspace admin. |
+| `description` | `string` | Free-text group description. |
+
+See the [module inputs](https://registry.terraform.io/modules/terraform-google-modules/group/google/0.8.0?tab=inputs) for the full list.
 
 ## Examples
 

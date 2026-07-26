@@ -16,7 +16,20 @@ This is a **Unit** component. It wraps the [terraform-google-modules/folders/goo
 
 ## Scaffolding
 
-From the catalog TUI, select this unit and press `s` to scaffold it into your working directory. Terragrunt copies the unit files in place and generates a `terragrunt.values.hcl` for any `values.*` references collected by the form.
+From the catalog TUI, select this unit and press `s` to scaffold it into your working directory. Terragrunt copies the unit files in place and prompts for each `values.*` reference (press `x` on optional fields to keep the `try()` default). It writes a `terragrunt.values.hcl` with the answers you provide.
+
+| Value | Required | Default | Description |
+|-------|----------|---------|-------------|
+| `parent` | yes | — | Parent folder or organization (`folders/<folder_id>` or `organizations/<org_id>`). |
+| `names` | yes | — | Folder display names to create under the parent. |
+| `prefix` | no | `""` | Optional prefix prepended to each folder name (with a trailing `-` when non-empty). |
+| `deletion_protection` | no | `true` | Prevent Terraform from destroying or recreating the folder. |
+| `set_roles` | no | `false` | Enable IAM role assignment via the folder admin variables below. |
+| `per_folder_admins` | no | `{}` | IAM members (and optional roles) per folder name when `set_roles` is enabled. |
+| `all_folder_admins` | no | `[]` | IAM members granted extended permissions on every folder when `set_roles` is enabled. |
+| `folder_admin_roles` | no | See below | Roles applied when `set_roles` is enabled and roles are not set in `per_folder_admins`. |
+
+Default for `folder_admin_roles` when omitted: `roles/owner`, `roles/resourcemanager.folderViewer`, `roles/resourcemanager.projectCreator`, `roles/compute.networkAdmin`.
 
 After scaffolding, wire the unit into your live repository and supply org- or environment-specific configuration there.
 
@@ -45,19 +58,19 @@ Org- or account-specific values (such as `org_id`) belong in the **live** reposi
 
 | Input | Type | Description |
 |-------|------|-------------|
-| `parent` | `string` | Parent resource. Must be `organizations/<org_id>` or `folders/<folder_id>`. |
-| `names` | `list(string)` | Folder names to create under the parent. |
+| `parent` | `string` | The resource name of the parent Folder or Organization. Must be of the form `folders/<folder_id>` or `organizations/<org_id>`. |
+| `names` | `list(string)` | Folder names. (Module default is `[]`; this unit expects at least one name when creating folders.) |
 
 ## Optional inputs
 
 | Input | Type | Default | Description |
 |-------|------|---------|-------------|
-| `prefix` | `string` | `""` | Optional prefix prepended to folder names. |
+| `prefix` | `string` | `""` | Optional prefix to enforce uniqueness of folder names. |
 | `deletion_protection` | `bool` | `true` | Prevent Terraform from destroying or recreating the folder. |
-| `set_roles` | `bool` | `false` | Enable IAM role assignment via the admin variables below. |
-| `folder_admin_roles` | `list(string)` | See module docs | Default roles applied when `set_roles` is enabled. |
-| `per_folder_admins` | `map(object)` | `{}` | IAM members and roles per folder name. |
-| `all_folder_admins` | `list(string)` | `[]` | IAM members granted extended permissions on all folders. |
+| `set_roles` | `bool` | `false` | Enable setting roles via the folder admin variables. |
+| `per_folder_admins` | `map(object)` | `{}` | IAM-style roles per members per folder who will get extended permissions. If roles are not provided for a folder/member combination, the list provided as `folder_admin_roles` will be applied as default. |
+| `all_folder_admins` | `list(string)` | `[]` | List of IAM-style members that will get the extended permissions across all the folders. |
+| `folder_admin_roles` | `list(string)` | `roles/owner`, `roles/resourcemanager.folderViewer`, `roles/resourcemanager.projectCreator`, `roles/compute.networkAdmin` | List of roles that will be applied to a folder if roles are not explicitly specified in `per_folder_admins`. |
 
 See the [module inputs](https://registry.terraform.io/modules/terraform-google-modules/folders/google/latest?tab=inputs) for full details.
 
