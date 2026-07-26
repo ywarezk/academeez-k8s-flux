@@ -3,6 +3,7 @@
  *    - common provider configurations
  *    - remote state configuration
  *    - impersonation logic
+ *    - catalog configuration (terragrunt catalog / scaffold)
  *
  * Created December 14th, 2024
  * @author ywarezk
@@ -19,6 +20,12 @@ locals {
   common_project  = local.common_config.common_project
   org_id          = local.common_config.org_id
   customer_id     = local.common_config.customer_id
+}
+
+catalog {
+  urls = [
+    get_repo_root(),
+  ]
 }
 
 # configure remote state in bucket
