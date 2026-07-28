@@ -1,14 +1,17 @@
 /**
- * this will assign iam permission to the root folder of the course
+ * IAM bindings for Google Cloud folders.
  *
+ * Wraps terraform-google-modules/iam/google//modules/folders_iam.
+ * Consumers pass module inputs via the `inputs` block in live terragrunt.hcl,
+ * or via `terragrunt.values.hcl` when scaffolding from the catalog (`values.*`).
  */
 
 include "root" {
   path = find_in_parent_folders("root.hcl")
 }
 
-include "iam_folder" {
-  path = "${get_repo_root()}/iac/gcp/catalog/units/iam/folder/terragrunt.hcl"
+terraform {
+  source = "tfr:///terraform-google-modules/iam/google//modules/folders_iam?version=8.1.0"
 }
 
 # since the project will be under the shared folder we will grab it using the dependency block
@@ -22,7 +25,7 @@ dependency "iam_sa" {
 
 inputs = {
   folders = [dependency.root_folder.outputs.id]
-  mode    = "authoritative"
+  mode    = try(values.mode, "additive")
   bindings = {
     "roles/iam.securityAdmin" = [
       "serviceAccount:${dependency.iam_sa.outputs.email}"
@@ -31,4 +34,5 @@ inputs = {
       "serviceAccount:${dependency.iam_sa.outputs.email}"
     ]
   }
+  conditional_bindings = try(values.conditional_bindings, [])
 }
