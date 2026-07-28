@@ -1,12 +1,18 @@
-
+/**
+ * Google Cloud group unit.
+ *
+ * Wraps terraform-google-modules/group/google.
+ * Consumers pass module inputs via the `inputs` block in live terragrunt.hcl,
+ * or via `terragrunt.values.hcl` when scaffolding from the catalog (`values.*`).
+ */
 
 include "root" {
   path   = find_in_parent_folders("root.hcl")
   expose = true
 }
 
-include "group" {
-  path = "${get_repo_root()}/iac/gcp/catalog/units/group/terragrunt.hcl"
+terraform {
+  source = "tfr:///terraform-google-modules/group/google?version=0.8.0"
 }
 
 dependency "iam_sa" {
@@ -14,10 +20,14 @@ dependency "iam_sa" {
 }
 
 inputs = {
-  customer_id  = include.root.locals.customer_id
-  owners       = [dependency.iam_sa.outputs.email]
-  id           = "k8s-flux-admin@academeez.com"
-  display_name = "k8s-flux-admin"
-  description  = "k8s flux admin group"
-  members      = ["k8s-flux@academeez.com"]
+  id                   = values.id
+  customer_id          = include.root.locals.customer_id
+  domain               = try(values.domain, "")
+  display_name         = try(values.display_name, "")
+  description          = try(values.description, "")
+  owners               = [dependency.iam_sa.outputs.email]
+  managers             = try(values.managers, [])
+  members              = try(values.members, [])
+  initial_group_config = try(values.initial_group_config, "EMPTY")
+  types                = try(values.types, ["default"])
 }

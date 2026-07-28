@@ -1,7 +1,17 @@
-
+/**
+ * IAM bindings for Google Cloud service accounts.
+ *
+ * Wraps terraform-google-modules/iam/google//modules/service_accounts_iam.
+ * Consumers pass module inputs via the `inputs` block in live terragrunt.hcl,
+ * or via `terragrunt.values.hcl` when scaffolding from the catalog (`values.*`).
+ */
 
 include "root" {
   path = find_in_parent_folders("root.hcl")
+}
+
+terraform {
+  source = "tfr:///terraform-google-modules/iam/google//modules/service_accounts_iam?version=8.1.0"
 }
 
 dependency "iam_sa" {
@@ -16,17 +26,14 @@ dependency "iam_project" {
   config_path = "../../../project"
 }
 
-include "sa_allow" {
-  path = "${get_repo_root()}/iac/gcp/catalog/units/iam/service-account/terragrunt.hcl"
-}
-
 inputs = {
-  service_accounts = [dependency.iam_sa.outputs.email]
   project          = dependency.iam_project.outputs.project_id
-  mode             = "authoritative"
+  service_accounts = [dependency.iam_sa.outputs.email]
+  mode             = try(values.mode, "additive")
   bindings = {
     "roles/iam.serviceAccountTokenCreator" : [
       "group:${dependency.admin_group.outputs.id}"
     ]
   }
+  conditional_bindings = try(values.conditional_bindings, [])
 }

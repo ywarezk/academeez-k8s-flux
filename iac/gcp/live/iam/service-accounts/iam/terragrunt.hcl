@@ -1,19 +1,18 @@
 /**
- * this will create the iam service account
- * This service account is in charge of creating the groups and service accounts, and permissions of those groups and service accounts
+ * Google Cloud service account unit.
  *
- * Created April 18th, 2025
- * @ywarezk
+ * Wraps terraform-google-modules/service-accounts/google.
+ * Consumers pass module inputs via the `inputs` block in live terragrunt.hcl,
+ * or via `terragrunt.values.hcl` when scaffolding from the catalog (`values.*`).
  */
 
 include "root" {
   path = find_in_parent_folders("root.hcl")
 }
 
-include "iam_sa" {
-  path = "${get_repo_root()}/iac/gcp/catalog/units/service-account/terragrunt.hcl"
+terraform {
+  source = "tfr:///terraform-google-modules/service-accounts/google?version=4.7.0"
 }
-
 
 # iam project
 dependency "iam_project" {
@@ -21,7 +20,17 @@ dependency "iam_project" {
 }
 
 inputs = {
-  names      = ["iam"]
-  project_id = dependency.iam_project.outputs.project_id
-  prefix     = "az-k8s"
+  project_id         = dependency.iam_project.outputs.project_id
+  prefix             = try(values.prefix, "")
+  names              = try(values.names, [])
+  project_roles      = try(values.project_roles, [])
+  grant_billing_role = try(values.grant_billing_role, false)
+  billing_account_id = try(values.billing_account_id, "")
+  grant_xpn_roles    = try(values.grant_xpn_roles, true)
+  org_id             = try(values.org_id, "")
+  generate_keys      = try(values.generate_keys, false)
+  display_name       = try(values.display_name, "Terraform-managed service account")
+  description        = try(values.description, "")
+  descriptions       = try(values.descriptions, [])
+  disabled           = try(values.disabled, {})
 }
