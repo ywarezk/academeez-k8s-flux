@@ -14,10 +14,12 @@ terraform {
   source = "tfr:///terraform-google-modules/iam/google//modules/service_accounts_iam?version=8.1.0"
 }
 
-inputs = {
-  project              = try(values.project, "")
-  service_accounts     = try(values.service_accounts, [])
-  mode                 = try(values.mode, "additive")
-  bindings             = try(values.bindings, {})
-  conditional_bindings = try(values.conditional_bindings, [])
-}
+inputs = merge(
+  {
+    project              = try(values.project, "")
+    service_accounts     = try(values.service_accounts, [])
+    mode                 = try(values.mode, "additive")
+    conditional_bindings = try(values.conditional_bindings, [])
+  },
+  length(try(values.bindings, {})) > 0 ? { bindings = values.bindings } : {},
+)

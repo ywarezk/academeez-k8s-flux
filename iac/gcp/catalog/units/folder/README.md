@@ -33,6 +33,8 @@ Default for `folder_admin_roles` when omitted: `roles/owner`, `roles/resourceman
 
 After scaffolding, wire the unit into your live repository and supply org- or environment-specific configuration there.
 
+In a stack `unit` block you only need to set the values you care about; optional keys use the `try()` defaults in the catalog unit. Required keys such as `parent` and `names` can be omitted from `values` when you supply them via an `autoinclude` `inputs` block instead (see [catalog units README](../README.md)).
+
 ## Consumption
 
 Include this unit from your live repository and supply module inputs in your `terragrunt.hcl`:
