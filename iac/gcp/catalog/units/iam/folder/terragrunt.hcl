@@ -14,9 +14,11 @@ terraform {
   source = "tfr:///terraform-google-modules/iam/google//modules/folders_iam?version=8.1.0"
 }
 
-inputs = {
-  folders              = try(values.folders, [])
-  mode                 = try(values.mode, "additive")
-  bindings             = try(values.bindings, {})
-  conditional_bindings = try(values.conditional_bindings, [])
-}
+inputs = merge(
+  {
+    folders              = try(values.folders, [])
+    mode                 = try(values.mode, "additive")
+    conditional_bindings = try(values.conditional_bindings, [])
+  },
+  length(try(values.bindings, {})) > 0 ? { bindings = values.bindings } : {},
+)

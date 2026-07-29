@@ -14,9 +14,11 @@ terraform {
   source = "tfr:///terraform-google-modules/iam/google//modules/storage_buckets_iam?version=8.1.0"
 }
 
-inputs = {
-  storage_buckets      = try(values.storage_buckets, [])
-  mode                 = try(values.mode, "additive")
-  bindings             = values.bindings
-  conditional_bindings = try(values.conditional_bindings, [])
-}
+inputs = merge(
+  {
+    storage_buckets      = try(values.storage_buckets, [])
+    mode                 = try(values.mode, "additive")
+    conditional_bindings = try(values.conditional_bindings, [])
+  },
+  length(try(values.bindings, {})) > 0 ? { bindings = values.bindings } : {},
+)

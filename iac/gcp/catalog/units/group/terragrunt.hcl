@@ -14,15 +14,17 @@ terraform {
   source = "tfr:///terraform-google-modules/group/google?version=0.8.0"
 }
 
-inputs = {
-  id                   = values.id
-  customer_id          = values.customer_id
-  domain               = try(values.domain, "")
-  display_name         = try(values.display_name, "")
-  description          = try(values.description, "")
-  owners               = try(values.owners, [])
-  managers             = try(values.managers, [])
-  members              = try(values.members, [])
-  initial_group_config = try(values.initial_group_config, "EMPTY")
-  types                = try(values.types, ["default"])
-}
+inputs = merge(
+  {
+    domain               = try(values.domain, "")
+    display_name         = try(values.display_name, "")
+    description          = try(values.description, "")
+    owners               = try(values.owners, [])
+    managers             = try(values.managers, [])
+    members              = try(values.members, [])
+    initial_group_config = try(values.initial_group_config, "EMPTY")
+    types                = try(values.types, ["default"])
+  },
+  try(values.id, "") != "" ? { id = values.id } : {},
+  try(values.customer_id, "") != "" ? { customer_id = values.customer_id } : {},
+)

@@ -14,9 +14,11 @@ terraform {
   source = "tfr:///terraform-google-modules/iam/google//modules/projects_iam?version=8.1.0"
 }
 
-inputs = {
-  projects             = try(values.projects, [])
-  mode                 = try(values.mode, "additive")
-  bindings             = try(values.bindings, {})
-  conditional_bindings = try(values.conditional_bindings, [])
-}
+inputs = merge(
+  {
+    projects             = try(values.projects, [])
+    mode                 = try(values.mode, "additive")
+    conditional_bindings = try(values.conditional_bindings, [])
+  },
+  length(try(values.bindings, {})) > 0 ? { bindings = values.bindings } : {},
+)

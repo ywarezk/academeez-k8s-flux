@@ -14,8 +14,10 @@ terraform {
   source = "tfr:///terraform-google-modules/iam/google//modules/billing_accounts_iam?version=8.1.0"
 }
 
-inputs = {
-  billing_account_ids = try(values.billing_account_ids, [])
-  bindings            = values.bindings
-  mode                = try(values.mode, "additive")
-}
+inputs = merge(
+  {
+    billing_account_ids = try(values.billing_account_ids, [])
+    mode                = try(values.mode, "additive")
+  },
+  length(try(values.bindings, {})) > 0 ? { bindings = values.bindings } : {},
+)
