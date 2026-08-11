@@ -99,7 +99,7 @@ Project-specific values (`project_id`, `names`, `prefix`, `location`) belong in 
 | `randomize_suffix` | `bool` | `false` | Adds an identical, but randomized 4-character suffix to all bucket names. |
 | `labels` | `map(string)` | `{}` | Labels to be attached to the buckets. |
 | `public_access_prevention` | `string` | `"inherited"` | Prevents public access to a bucket (`inherited` or `enforced`). |
-| `versioning` | `map(bool)` | `{}` | Map of lowercase unprefixed name => boolean. |
+| `versioning` | `map(bool)` | `{}` | Map of bucket name suffix => boolean. |
 | `autoclass` | `map(bool)` | `{}` | Map of bucket name suffix => enable Autoclass. |
 | `bucket_policy_only` | `map(bool)` | `{}` | Disable ad-hoc ACLs on specified buckets (defaults to `true` when set). |
 | `force_destroy` | `map(bool)` | `{}` | Map of bucket name suffix => allow Terraform to delete non-empty buckets. |
