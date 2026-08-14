@@ -35,13 +35,9 @@ inputs = merge(
     bgp_always_compare_med                    = try(values.bgp_always_compare_med, false)
     bgp_best_path_selection_mode              = try(values.bgp_best_path_selection_mode, "LEGACY")
     bgp_inter_region_cost                     = try(values.bgp_inter_region_cost, null)
-    private_service_access_config = try(values.private_service_access_config, {
-      enable_private_services_connection = false
-      address_name                       = "private-ip-address"
-      prefix_length                      = 16
-    })
   },
   try(values.project_id, "") != "" ? { project_id = values.project_id } : {},
   try(values.network_name, "") != "" ? { network_name = values.network_name } : {},
   length(try(values.subnets, [])) > 0 ? { subnets = values.subnets } : {},
+  length(try(values.private_service_access_config, {})) > 0 ? { private_service_access_config = values.private_service_access_config } : {},
 )

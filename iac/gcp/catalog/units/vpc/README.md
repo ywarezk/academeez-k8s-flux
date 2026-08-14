@@ -34,7 +34,7 @@ From the catalog TUI, select this unit and press `s` to scaffold it into your wo
 | `ingress_rules` | no | `[]` | Ingress firewall rules. |
 | `egress_rules` | no | `[]` | Egress firewall rules. |
 | `mtu` | no | `0` | Network MTU (`0` = provider default 1460). |
-| `private_service_access_config` | no | PSA disabled | Enable VPC peering for managed services (Cloud SQL private IP, etc.). |
+| `private_service_access_config` | no | PSA disabled (module default) | Enable VPC peering for managed services (Cloud SQL private IP, etc.). Press `x` when scaffolding to omit; add the full object in `terragrunt.values.hcl` when enabling PSA. |
 
 Set `project_id`, `network_name`, and `subnets` together when scaffolding a real VPC.
 
