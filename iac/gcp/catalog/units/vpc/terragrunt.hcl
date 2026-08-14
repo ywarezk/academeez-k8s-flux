@@ -39,5 +39,5 @@ inputs = merge(
   try(values.project_id, "") != "" ? { project_id = values.project_id } : {},
   try(values.network_name, "") != "" ? { network_name = values.network_name } : {},
   length(try(values.subnets, [])) > 0 ? { subnets = values.subnets } : {},
-  length(try(values.private_service_access_config, {})) > 0 ? { private_service_access_config = values.private_service_access_config } : {},
+  try(length(keys(values.private_service_access_config)), 0) > 0 ? { private_service_access_config = values.private_service_access_config } : {},
 )
