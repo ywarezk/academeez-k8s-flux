@@ -1,0 +1,55 @@
+variables:
+  - name: OrgId
+    description: |
+      GCP organization numeric ID.
+      Run: gcloud organizations list --format='table(displayName,name)'
+      Use the number from organizations/123456789
+    type: string
+    order: 1
+    validations:
+      - required
+
+  - name: CommonProject
+    description: |
+      Shared project ID (remote state bucket, shared APIs).
+      Run: gcloud projects list --format='table(projectId,name)'
+    type: string
+    order: 2
+    validations:
+      - required
+
+  - name: CustomerId
+    description: |
+      Google Workspace / Cloud Identity customer ID (directoryCustomerId).
+      Run: gcloud organizations list --format='table(displayName,directoryCustomerId)'
+    type: string
+    order: 3
+    validations:
+      - required
+
+  - name: BillingAccount
+    description: |
+      Billing account ID (format XXXXXX-XXXXXX-XXXXXX).
+      Run: gcloud billing accounts list --format='table(name,displayName,open)'
+      Use the ID after billingAccounts/
+    type: string
+    order: 4
+    validations:
+      - required
+
+  - name: BillingProject
+    description: |
+      Project used for billing API quota in provider config.
+      Usually the same as CommonProject.
+      Run: gcloud projects list --format='table(projectId,name)'
+    type: string
+    order: 5
+    default: "{{ .CommonProject }}"
+
+  - name: Region
+    description: |
+      Default GCP region for providers and resources.
+      Run: gcloud compute regions list --format='table(name,status)'
+    type: string
+    order: 6
+    default: us-central1
