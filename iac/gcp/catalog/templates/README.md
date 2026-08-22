@@ -7,7 +7,7 @@ Unlike [`units/`](../units/) (infrastructure with their own state), templates ge
 Use either:
 
 - **`terragrunt catalog github.com/Nerdeez/terragrunt-catalog`** — browse templates in the catalog TUI and press `s` to scaffold (no `catalog {}` block required when the repo URL is passed on the CLI)
-- **`terragrunt scaffold git::https://github.com/Nerdeez/terragrunt-catalog.git//iac/gcp/catalog/templates/config?ref=<version>`** — scaffold a template directly
+- **`terragrunt scaffold 'git::https://github.com/Nerdeez/terragrunt-catalog.git//iac/gcp/catalog/templates/config?ref=<version>'`** — scaffold a template directly (quote the URL in zsh — `?` is a glob character)
 
 Once `root.hcl` exists with a `catalog {}` block, run `terragrunt catalog` with no arguments.
 
@@ -38,7 +38,7 @@ Or scaffold directly:
 cd iac/live   # or iac/gcp/live
 
 terragrunt scaffold \
-  git::https://github.com/Nerdeez/terragrunt-catalog.git//iac/gcp/catalog/templates/root?ref=<version> \
+  'git::https://github.com/Nerdeez/terragrunt-catalog.git//iac/gcp/catalog/templates/root?ref=<version>' \
   --output-folder .
 ```
 
@@ -63,7 +63,7 @@ Select the **Live config template**, press `s`, and scaffold into the live direc
 
 ```bash
 terragrunt scaffold \
-  git::https://github.com/Nerdeez/terragrunt-catalog.git//iac/gcp/catalog/templates/config?ref=<version> \
+  'git::https://github.com/Nerdeez/terragrunt-catalog.git//iac/gcp/catalog/templates/config?ref=<version>' \
   --output-folder .
 ```
 

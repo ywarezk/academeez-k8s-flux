@@ -79,11 +79,11 @@ Select **Live config template**, press `s`, and scaffold into the live directory
 cd iac/live   # or iac/gcp/live
 
 terragrunt scaffold \
-  git::https://github.com/Nerdeez/terragrunt-catalog.git//iac/gcp/catalog/templates/config?ref=<version> \
+  'git::https://github.com/Nerdeez/terragrunt-catalog.git//iac/gcp/catalog/templates/config?ref=<version>' \
   --output-folder .
 ```
 
-Pin `ref` to a catalog release tag (for example `v0.0.3`).
+Pin `ref` to a catalog release tag (for example `v1.1.0`). Quote the URL in zsh — `?` is a glob character.
 
 #### From a local checkout of this catalog
 

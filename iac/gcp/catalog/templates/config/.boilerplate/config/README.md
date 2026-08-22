@@ -38,11 +38,11 @@ From the catalog git repository:
 cd ..   # live directory
 
 terragrunt scaffold \
-  git::https://github.com/Nerdeez/terragrunt-catalog.git//iac/gcp/catalog/templates/config?ref=<version> \
+  'git::https://github.com/Nerdeez/terragrunt-catalog.git//iac/gcp/catalog/templates/config?ref=<version>' \
   --output-folder .
 ```
 
-Pin `ref` to a catalog release tag.
+Pin `ref` to a catalog release tag. Quote the URL in zsh — `?` is a glob character.
 
 #### From a local checkout of the catalog
 
