@@ -33,8 +33,4 @@ Install mise if you haven't already:
    pre-commit install
    ```
 
-The repository will automatically use the correct versions of:
-
-- OpenTofu (1.10.7)
-- Terragrunt (0.93.13)
-- pre-commit (4.5.0)
+The repository will automatically use the tool versions pinned in [`mise.toml`](mise.toml) (locked in [`mise.lock`](mise.lock)). Run `mise install` to install them.
